@@ -1,0 +1,206 @@
+DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GreenRights AI</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #0f172a, #064e3b);
+  color: white;
+}
+
+/* HERO */
+.hero {
+  text-align: center;
+  padding: 70px 20px 20px;
+}
+
+.hero h1 {
+  font-size: 38px;
+}
+
+.hero p {
+  color: #cbd5f5;
+  margin-top: 10px;
+}
+
+/* CARD */
+.container {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+.card {
+  background: rgba(255,255,255,0.95);
+  padding: 25px;
+  border-radius: 18px;
+  color: black;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+}
+
+/* INPUT */
+textarea {
+  width: 100%;
+  height: 90px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+
+/* BUTTON */
+button {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  border: none;
+  padding: 12px;
+  width: 100%;
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+button:hover {
+  transform: scale(1.04);
+}
+
+/* LOADING */
+.loading {
+  display: none;
+  text-align: center;
+  margin-top: 15px;
+  color: #555;
+}
+
+/* RESULT */
+.result {
+  margin-top: 20px;
+  display: none;
+  animation: fadeIn 0.4s ease;
+}
+
+.badge {
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.low { background: #bbf7d0; }
+.medium { background: #fde68a; }
+.high { background: #fecaca; }
+
+/* FEATURES */
+.features {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 30px;
+  flex-wrap: wrap;
+}
+
+.feature {
+  width: 150px;
+  text-align: center;
+  margin: 10px;
+}
+
+/* ANIMATION */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+
+<body>
+
+<div class="hero">
+  <h1>🌱 GreenRights AI</h1>
+  <p>Most students use AI blindly. This app shows when you shouldn’t.</p>
+</div>
+
+<div class="container">
+  <div class="card">
+
+    <textarea id="task" placeholder="Describe your task (e.g. write my essay, generate code...)"></textarea>
+
+    <button onclick="analyze()">Analyze Task</button>
+
+    <div id="loading" class="loading">Analyzing...</div>
+
+    <div id="resultBox" class="result">
+      <p><strong>🤖 Decision:</strong> <span id="decision"></span></p>
+      <p><strong>🌍 Eco Score:</strong> <span id="eco"></span></p>
+      <p><strong>⚖️ Legal Warning:</strong> <span id="legal"></span></p>
+      <p><strong>✨ Optimized Prompt:</strong> <span id="prompt"></span></p>
+    </div>
+
+  </div>
+
+  <div class="features">
+    <div class="feature">
+      <h3>🌍 Eco Aware</h3>
+      <p>Tracks AI impact</p>
+    </div>
+
+    <div class="feature">
+      <h3>⚖️ Legal Safe</h3>
+      <p>Avoid plagiarism</p>
+    </div>
+
+    <div class="feature">
+      <h3>🤖 Smart AI</h3>
+      <p>Optimized usage</p>
+    </div>
+  </div>
+</div>
+
+<script>
+function analyze() {
+  const task = document.getElementById("task").value.toLowerCase();
+
+  document.getElementById("loading").style.display = "block";
+  document.getElementById("resultBox").style.display = "none";
+
+  setTimeout(() => {
+    let decision = "";
+    let eco = "";
+    let legal = "";
+    let prompt = "";
+
+    if (task.includes("essay") || task.includes("homework")) {
+      decision = "❌ Do it yourself";
+      eco = "<span class='badge low'>Low</span>";
+      legal = "⚠️ High plagiarism risk";
+      prompt = "Use AI only for guidance, not full answers.";
+    } else if (task.includes("code") || task.includes("project")) {
+      decision = "✅ Use AI";
+      eco = "<span class='badge medium'>Medium</span>";
+      legal = "✔️ Low legal risk";
+      prompt = "Generate structured and efficient code.";
+    } else {
+      decision = "⚠️ Use AI carefully";
+      eco = "<span class='badge medium'>Medium</span>";
+      legal = "⚖️ Check ethical use";
+      prompt = "Refine your request to reduce unnecessary AI usage.";
+    }
+
+    document.getElementById("decision").innerHTML = decision;
+    document.getElementById("eco").innerHTML = eco;
+    document.getElementById("legal").innerHTML = legal;
+    document.getElementById("prompt").innerHTML = prompt;
+
+    document.getElementById("loading").style.display = "none";
+    document.getElementById("resultBox").style.display = "block";
+
+  }, 1000);
+}
+</script>
+
+</body>
+</html>
